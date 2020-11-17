@@ -1,28 +1,32 @@
 package test_suit;
 
 import api.Students;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import io.restassured.response.Response;
-import org.junit.Test;
+import org.testng.annotations.Test;
 import setup.HttpStatusCode;
 
-import static org.hamcrest.Matchers.equalTo;
+import java.util.logging.Logger;
+
+import static org.testng.Assert.assertEquals;
 
 public class test_students_happy_path {
 
-    private static Logger LOG = LoggerFactory.getLogger(test_students_happy_path.class);
+    //private static Logger LOG = LoggerFactory.getLogger(test_students_happy_path.class);
+    private final static Logger LOG = Logger.getLogger(test_students_happy_path.class.getName());
 
     @Test
     public void getAllStudentRecords() {
-        LOG.debug("Step - 1 : Send GET Request");
+        LOG.info("Step - 1 : Send GET Request");
         Response response = Students.getAllStudents();
 
-        LOG.debug("Step - 2 : Print the JSON response body");
+        LOG.info("Step - 2 : Print the JSON response body");
         response.getBody().prettyPrint();
 
-        LOG.debug("Step - 3 : Assert StatusCode = 200");
-        //assertEquals (response.getStatusCode(),HttpStatusCode.OK, "http status code");
+        LOG.info("Step - 3 : Assert StatusCode = 200");
+        assertEquals(response.getStatusCode(), HttpStatusCode.OK, "http status code" + response.getStatusCode());
+
+        LOG.info("Step - 4 : Validate total records");
+
     }
 
 }
