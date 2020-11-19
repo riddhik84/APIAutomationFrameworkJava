@@ -1,18 +1,43 @@
 package test_suit;
 
+import api.Students;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.testng.annotations.Test;
+import pojo.Student;
+import setup.HttpStatusCode;
 
 import java.util.logging.Logger;
+
+import static org.testng.Assert.*;
 
 public class test_workflow {
 
     private final static Logger LOG = Logger.getLogger(test_workflow.class.getName());
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Test
-    public void test_students_workflow() {
-        LOG.info("Step 1 - Get all students list");
+    public void test_students_workflow() throws JsonProcessingException {
 
-        LOG.info("Step 2 - Create a new student info");
+        Response response = null;
+
+        LOG.info("-- Step 1 - Get all students list");
+        response = Students.getAllStudents();
+        response.getBody().prettyPrint();
+        assertEquals(response.getStatusCode(), HttpStatusCode.OK, "http status code " + response.getStatusCode());
+        //assertTrue(response.getBody().jsonPath().getList("id").contains(101));
+
+        LOG.info("-- Step 2 - Create a new student info");
+        Student student = new Student("Sam", "Bailey", "Female");
+        byte[] data = MAPPER.writeValueAsBytes(student);
+        String json = MAPPER.writeValueAsString(student);
+        response = Students.createStudent(student);
+        assertEquals(response.getStatusCode(), HttpStatusCode.CREATED, "http status");
+        int id = response.path("id");
+        assertNotNull(id, "created student id is null");
+        LOG.info("created student id => {}" + id);
 
         LOG.info("Step 3 - Update the new student's info");
 
