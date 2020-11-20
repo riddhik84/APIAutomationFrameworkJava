@@ -32,8 +32,8 @@ public class Students {
         return response;
     }
 
-    public static Response updateStudent(Student student) {
-        String url = config.getURL() + "educative-rest/students";
+    public static Response updateStudent(Student student, int studentID) {
+        String url = config.getURL() + "educative-rest/students/" + studentID;
         Response response = RestAssured.given()
                 .contentType("application/json")
                 .log().all(true)

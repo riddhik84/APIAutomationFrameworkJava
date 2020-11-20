@@ -22,26 +22,34 @@ public class test_workflow {
     public void test_students_workflow() throws JsonProcessingException {
 
         Response response = null;
+        int newStudentID = 0;
 
-        LOG.info("-- Step 1 - Get all students list");
+        LOG.info("--> Step 1 - Get all students list");
         response = Students.getAllStudents();
         response.getBody().prettyPrint();
         assertEquals(response.getStatusCode(), HttpStatusCode.OK, "http status code " + response.getStatusCode());
         //assertTrue(response.getBody().jsonPath().getList("id").contains(101));
 
-        LOG.info("-- Step 2 - Create a new student info");
+        LOG.info("--> Step 2 - Create a new student info");
         Student student = new Student("Sam", "Bailey", "Female");
         byte[] data = MAPPER.writeValueAsBytes(student);
         String json = MAPPER.writeValueAsString(student);
         response = Students.createStudent(student);
         assertEquals(response.getStatusCode(), HttpStatusCode.CREATED, "http status");
-        int id = response.path("id");
-        assertNotNull(id, "created student id is null");
-        LOG.info("created student id => {}" + id);
+        newStudentID = response.path("id");
+        assertNotNull(newStudentID, "created student id is null");
+        LOG.info("created student id => {}" + newStudentID);
 
-        LOG.info("Step 3 - Update the new student's info");
+        LOG.info("--> Step 3 - Update the new student's info");
+        student = new Student("Sam", "Matrin", "Female");
+        response = Students.updateStudent(student, newStudentID);
+        response.getBody().prettyPrint();
+        assertTrue(response.getStatusCode() == HttpStatusCode.CREATED);
+        int newStudentID1 = response.path("id");
+        assertEquals(newStudentID, newStudentID1, "new id is generated while updating existing student record");
 
-        LOG.info("Step 4 - Get the new student's record");
+        LOG.info("--> Step 4 - Get the new student's record");
+        
 
         LOG.info("Step 5 - Get all students records, count should be +1");
 
