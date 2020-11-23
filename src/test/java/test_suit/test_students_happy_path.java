@@ -3,7 +3,6 @@ package test_suit;
 import api.Students;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
-import pojo.Student;
 import setup.HttpStatusCode;
 
 import java.io.File;

@@ -4,13 +4,16 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import pojo.Student;
+import model.Student;
 import setup.Environment;
 import setup.EnvironmentConfigs;
 
 import java.io.File;
 
 public class Students {
+    //Global proxy setup for rest assured
+    //RestAssured.proxy = RestAssured.proxy.withHost("<proxy-host>").withPort(<proxy-port>)
+
     static EnvironmentConfigs config = new EnvironmentConfigs(Environment.TEST);
     static String username = config.getUsername();
     static String password = config.getPassword();
@@ -18,6 +21,7 @@ public class Students {
     public static Response getAllStudents() {
         return RestAssured.given()
                 .log().all(true)
+                //.proxy("<proxy-host>", <proxy-port>)
                 .spec(getRequestSpecification())
                 .get()
                 .andReturn();

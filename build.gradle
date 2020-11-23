@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure'
 }
 
 group 'api.automation'
@@ -10,9 +11,21 @@ repositories {
 }
 
 dependencies {
+    classpath "io.qameta.allure:allure-gradle:2.8.1"
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'io.rest-assured', name: 'rest-assured', version: '4.3.0'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.3'
     testImplementation 'org.hamcrest:hamcrest:2.2'
     testCompile group: 'org.testng', name: 'testng', version: '7.3.0'
+}
+
+allure {
+    version = '2.13.1'
+    autoconfigure = true
+    aspectjweaver = true
+    clean = true
+    allureJavaVersion = "${allure.version}"
+    resultsDir = file('test-output/allure-results')
+    reportDir = file('test-output/allure-reports')
+    downloadLink = "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${allure.version}/allure-commandline-${allure.version}.zip"
 }
