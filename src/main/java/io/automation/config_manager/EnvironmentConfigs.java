@@ -1,4 +1,4 @@
-package setup;
+package io.automation.config_manager;
 
 public class EnvironmentConfigs {
     private Environment environment;

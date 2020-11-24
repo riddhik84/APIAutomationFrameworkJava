@@ -1,12 +1,12 @@
-package api;
+package io.automation.api;
 
+import io.automation.config_manager.Environment;
+import io.automation.config_manager.EnvironmentConfigs;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import model.Student;
-import setup.Environment;
-import setup.EnvironmentConfigs;
+import io.automation.model.Student;
 
 import java.io.File;
 

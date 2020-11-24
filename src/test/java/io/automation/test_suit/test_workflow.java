@@ -1,12 +1,12 @@
-package test_suit;
+package io.automation.test_suit;
 
-import api.Students;
+import io.automation.api.Students;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
-import model.Student;
-import setup.HttpStatusCode;
+import io.automation.model.Student;
+import io.automation.config_manager.HttpStatusCode;
 
 import java.util.logging.Logger;
 

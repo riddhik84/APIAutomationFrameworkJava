@@ -1,4 +1,4 @@
-package setup;
+package io.automation.config_manager;
 
 public class HttpStatusCode {
     public static final int OK = 200;

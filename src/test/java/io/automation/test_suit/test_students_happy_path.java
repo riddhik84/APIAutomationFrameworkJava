@@ -1,9 +1,9 @@
-package test_suit;
+package io.automation.test_suit;
 
-import api.Students;
+import io.automation.api.Students;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
-import setup.HttpStatusCode;
+import io.automation.config_manager.HttpStatusCode;
 
 import java.io.File;
 import java.io.IOException;
